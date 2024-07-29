@@ -16,7 +16,7 @@ interface FilterProps {
   value?: string[];
   onValueChange?: (value: string[]) => void;
 }
-export default function Filter({ value, onValueChange }: FilterProps) {
+export default function DashboardPage({ value, onValueChange }: FilterProps) {
   const [internalValue, setInternalValue] = useState<string[]>([]);
   const items: FilterItemDefinition[] = [
     {

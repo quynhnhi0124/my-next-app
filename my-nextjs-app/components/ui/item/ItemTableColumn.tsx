@@ -1,19 +1,16 @@
 import {
-  createColumnHelper,
-  flexRender,
-  getCoreRowModel,
-  useReactTable,
+  createColumnHelper
 } from '@tanstack/react-table'
 import { Button } from '../button';
-import { Pencil2Icon } from '@radix-ui/react-icons';
+import { CaretDownIcon, CaretSortIcon, CaretUpIcon, Pencil2Icon } from '@radix-ui/react-icons';
 import { MultiSelect } from './MultiSelect';
 import { useState } from 'react';
-import { FormControl, FormField, FormItem } from '../form';
-import Link from 'next/link';
+import ItemHeaderAction from './ItemHeaderAction';
 
 interface LevelItem {
   id: string,
   level: string,
+  owner: string,
   group: {
     label: string,
     value: string,
@@ -28,48 +25,30 @@ const dataList = [
   { value: "ember", label: "Ember" },
 ];
 
-const TableCell = ({ getValue, row, column, table }: any) => {
+const TableCell = ({ getValue }: any) => {
   const initValue: LevelItem["group"] = getValue();
-  const meta = table.options.meta
+
   return (
-    // <FormField
-    //   name={`table.${row.id}.group`}
-    //   control={meta.form.control}
-    //   {...meta.form.register(`table.${row.id}.group`)}
-    //   render={({ field }) => {
-    //     console.log(field)
-    //     return (
-    //       <FormItem>
-    //         <FormControl>
-              <MultiSelect
-                options={dataList}
-                onValueChange={() => true}
-                defaultValue={initValue.map((item) => item.value)}
-                placeholder="Select frameworks"
-                variant="inverted"
-                animation={2}
-                maxCount={3}
-              />
-    //         </FormControl>
-    //       </FormItem>
-    //     )
-    //   }}>
-    // </FormField>
+    <p>{initValue.map((item) => item.value)}</p>
+    // <MultiSelect
+    //   options={dataList}
+    //   onValueChange={() => true}
+    //   defaultValue={initValue.map((item) => item.value)}
+    //   placeholder="Select frameworks"
+    //   variant="inverted"
+    //   animation={2}
+    //   maxCount={3}
+    // />
   );
 }
 
 const EditCell = () => {
-
   const [isEdit, setIsEdit] = useState<boolean>(true);
-  const toggleEdit = () => setIsEdit(!isEdit);
-
   return (
-    // <Link href="/">
-      <Button>
-        <Pencil2Icon />
-        {/* <span className='ml-2 w-8'>Edit</span> */}
-      </Button>
-    // </Link>
+    <Button>
+      <Pencil2Icon />
+      {/* <span className='ml-2 w-8'>Edit</span> */}
+    </Button>
   )
 }
 
@@ -77,12 +56,16 @@ const columnHelper = createColumnHelper<LevelItem>();
 
 export const ItemTableColumn = [
   columnHelper.accessor('level', {
-    header: () => <p>Level</p>,
-    cell: (info) => <p>{info.getValue()}</p>
+    header: ({ column }) => <ItemHeaderAction title="Level" column={column} />,
+    cell: (info) => <p>{info.getValue()}</p>,
   }),
   columnHelper.accessor('group', {
-    header: () => <p>Group</p>,
+    header: ({column}) => <ItemHeaderAction title="Group" column={column} />,
     cell: TableCell,
+  }),
+  columnHelper.accessor('owner', {
+    header: ({column}) => <ItemHeaderAction title="Owner" column={column} />,
+    cell: () => (<>owner</>),
   }),
   columnHelper.display({
     id: "action",

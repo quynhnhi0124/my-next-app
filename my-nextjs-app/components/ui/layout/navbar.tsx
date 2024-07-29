@@ -2,11 +2,12 @@
 
 import { Archive, ChevronDown, ChevronUp, ListIcon, LucideIcon, User2Icon } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@radix-ui/react-accordion";
-import Link from "next/link";
+
 import { cn } from "@/lib/utils";
 import { useEffect, useState } from "react";
 import { ChevronDownIcon, StackIcon, ValueIcon } from "@radix-ui/react-icons";
 import { usePathname } from "next/navigation";
+import { Link } from "@/src/i18n";
 
 interface Link {
   title: string;
@@ -57,8 +58,6 @@ export function NavbarItem({ links, open }: NavItemProps) {
       setDefaultOpen(openLink.title);
     }
   }, [path, links]);
-
-
   
   return (
     <Accordion type="single" collapsible defaultValue={defaultOpen}>
