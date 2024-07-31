@@ -144,12 +144,12 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             className={cn(
               "p-4 overflow-y-auto transition-height duration-300 ease-in-out",
               {
-                "lg:ps-64": isOpen,
-                "lg:ps-20": !isOpen,
+                "ps-[250px]": isOpen,
+                "ps-[100px]": !isOpen,
               }
             )}
           >
-            <div className="p-16">{children}</div>
+            <div className="py-16 px-0 lg:px-16">{children}</div>
           </main>
         </div>
       </div>

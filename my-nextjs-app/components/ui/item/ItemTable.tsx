@@ -214,7 +214,6 @@ export default function ListItemTable({ dataItem, tableFilterField }: ListItemTa
 //     const queryString = new URLSearchParams({ sortBy: JSON.stringify(params) }).toString()
 //     router.push(`${path}?${queryString}`);
 //   }
-//   console.log(2222, sortParams);
 
 //   useEffect(() => createQueryString(sorting), [sortParams]);
 //   return (

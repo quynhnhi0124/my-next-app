@@ -30,13 +30,13 @@ export default function TableToolbar({ table, tableFilterField }: TableToolbarPr
       <div className="flex items-center space-x-4">
         <Input className="w-[350px]" placeholder="Search..." />
         {filterableColumns.length > 0 && filterableColumns.map(column => (
-          <TableFaceted 
-          key={String(column.value)}
-          column={table.getColumn(
-            column.value ? String(column.value) : ""
-          )}
-          title={column.label}
-          options={column.options ?? []}
+          table.getColumn(String(column.value)) && <TableFaceted
+            key={String(column.value)}
+            column={table.getColumn(
+              column.value ? String(column.value) : ""
+            )}
+            title={column.label}
+            options={column.options ?? []}
           />
         ))}
       </div>

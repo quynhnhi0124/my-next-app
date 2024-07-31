@@ -14,7 +14,7 @@ export interface Option {
 type TableFacetedProps<TData, TValue> = {
   column?: Column<TData, TValue>
   title?: string
-  options: Option[]
+  options?  : Option[]
 }
 
 export default function TableFaceted<TData, TValue>({
@@ -24,8 +24,6 @@ export default function TableFaceted<TData, TValue>({
 }: TableFacetedProps<TData, TValue>) {
 
   const selectedValues = new Set(column?.getFilterValue() as string[])
-  console.log(1234, selectedValues);
-  
 
   return (
     <Popover>
@@ -71,7 +69,7 @@ export default function TableFaceted<TData, TValue>({
         <Command>
           <CommandList>
             <CommandGroup>
-              {options.map((option) => {
+              {options?.map((option) => {
                 const isSelected = selectedValues.has(option.name)
                 return (
                   <CommandItem
