@@ -32,10 +32,10 @@ export default function Navbar({ links, open }: NavProps) {
   return (
     <nav
       className={cn(
-        "fixed bg-[#FBFBFF] h-screen transition-height duration-300 ease-in-out",
+        "fixed bg-[#FBFBFF] h-screen transition-height duration-300 ease-in-out z-[2]",
         {
-          "lg:w-64": open,
-          "lg:w-20": !open,
+          "w-[250px]": open,
+          "w-[100px]": !open,
         }
       )}
     >

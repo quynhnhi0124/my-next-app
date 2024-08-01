@@ -1,11 +1,13 @@
 "use client"
 
-import { ColumnDef, flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table";
+import { ColumnDef, flexRender, getCoreRowModel, getFacetedRowModel, useReactTable } from "@tanstack/react-table";
 import { useEffect, useMemo, useState } from "react";
 import { ItemTableColumn } from "./ItemTableColumn";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../table";
 import { useSearchParams } from "next/navigation";
 import { usePathname, useRouter } from "@/src/i18n";
+import TableToolbar from "../common/TableToolbar";
+import { ScrollArea } from "@radix-ui/react-scroll-area";
 
 interface LevelItem {
   id: string,
@@ -22,18 +24,29 @@ type SortState = {
   desc: boolean;
 }[];
 
-export default function ListItemTable({ dataItem }: { dataItem: LevelItem[] }) {
+type FilterField = {
+  label: string,
+  value: string,
+  options: Array<any>
+}
+
+type ListItemTableProps = {
+  dataItem: LevelItem[],
+  tableFilterField: FilterField[]
+}
+
+export default function ListItemTable({ dataItem, tableFilterField }: ListItemTableProps) {
   const searchParams = useSearchParams();
   const [sorting, setSorting] = useState<SortState>([]);
   const [data, setData] = useState<LevelItem[]>([]);
   const router = useRouter();
   const path = usePathname();
-  
+
   // Set default sorting values
   const defaultSorting: SortState = [{ id: "level", desc: true }, { id: "group", desc: false }];
 
   const sortParams = searchParams.get("sortBy");
-  
+
   useEffect(() => {
     if (sortParams) {
       const parsedSortParams = JSON.parse(sortParams);
@@ -58,9 +71,10 @@ export default function ListItemTable({ dataItem }: { dataItem: LevelItem[] }) {
       sorting,
     },
     manualSorting: true,
-    getCoreRowModel: getCoreRowModel(),
     onSortingChange: setSorting,
     isMultiSortEvent: (e) => true,
+    getCoreRowModel: getCoreRowModel(),
+    getFacetedRowModel: getFacetedRowModel(),
   });
 
   const createQueryString = (params: SortState) => {
@@ -73,42 +87,45 @@ export default function ListItemTable({ dataItem }: { dataItem: LevelItem[] }) {
   }, [sorting, path, router]);
 
   return (
-    <Table>
-      <TableHeader>
-        {table.getHeaderGroups().map(headerGroup => (
-          <TableRow key={headerGroup.id}>
-            {headerGroup.headers.map(header => (
-              <TableHead
-                key={header.id}
-                colSpan={header.colSpan}
-                onClick={header.column.getToggleSortingHandler()}
-              >
-                {
-                  flexRender(
-                    header.column.columnDef.header,
-                    header.getContext()
-                  )
-                }
-              </TableHead>
-            ))}
-          </TableRow>
-        ))}
-      </TableHeader>
-      <TableBody>
-        {table.getRowModel().rows.map(row => (
-          <TableRow key={row.id}>
-            {row.getVisibleCells().map(cell => (
-              <TableCell key={cell.id}>
-                {flexRender(
-                  cell.column.columnDef.cell,
-                  cell.getContext(),
-                )}
-              </TableCell>
-            ))}
-          </TableRow>
-        ))}
-      </TableBody>
-    </Table>
+    <ScrollArea className="w-full h-full p-4">
+      <TableToolbar table={table} tableFilterField={tableFilterField} />
+      <Table>
+        <TableHeader>
+          {table.getHeaderGroups().map(headerGroup => (
+            <TableRow key={headerGroup.id}>
+              {headerGroup.headers.map(header => (
+                <TableHead
+                  key={header.id}
+                  colSpan={header.colSpan}
+                  onClick={header.column.getToggleSortingHandler()}
+                >
+                  {
+                    flexRender(
+                      header.column.columnDef.header,
+                      header.getContext()
+                    )
+                  }
+                </TableHead>
+              ))}
+            </TableRow>
+          ))}
+        </TableHeader>
+        <TableBody>
+          {table.getRowModel().rows.map(row => (
+            <TableRow key={row.id}>
+              {row.getVisibleCells().map(cell => (
+                <TableCell key={cell.id}>
+                  {flexRender(
+                    cell.column.columnDef.cell,
+                    cell.getContext(),
+                  )}
+                </TableCell>
+              ))}
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </ScrollArea>
   );
 }
 // const form = useForm<z.infer<typeof formSchema>>({
@@ -197,7 +214,6 @@ export default function ListItemTable({ dataItem }: { dataItem: LevelItem[] }) {
 //     const queryString = new URLSearchParams({ sortBy: JSON.stringify(params) }).toString()
 //     router.push(`${path}?${queryString}`);
 //   }
-//   console.log(2222, sortParams);
 
 //   useEffect(() => createQueryString(sorting), [sortParams]);
 //   return (
