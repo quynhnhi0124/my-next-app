@@ -58,7 +58,7 @@ const multiSelectVariants = cva(
  */
 interface MultiSelectProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof multiSelectVariants> {
+  VariantProps<typeof multiSelectVariants> {
   /**
    * An array of option objects to be displayed in the multi-select component.
    * Each option object has a label, value, and an optional icon.
@@ -171,7 +171,26 @@ export const MultiSelect = React.forwardRef<
       setSelectedValues(newSelectedValues);
       onValueChange(newSelectedValues);
     };
-
+    const handleInputKeyDown = (
+      event: React.KeyboardEvent<HTMLInputElement>
+    ) => {
+      if (event.key === "Enter") {
+        setIsPopoverOpen(true);
+      } else if (event.key === "Backspace" && !event.currentTarget.value) {
+        const newSelectedValues = [...selectedValues];
+        newSelectedValues.pop();
+        setSelectedValues(newSelectedValues);
+        onValueChange(newSelectedValues);
+      } else if (event.key === "Tab") {
+        const hoverOn = document.querySelector("[data-selected='true'][aria-selected='true']")
+        if (hoverOn) {
+          const valueHoverOn = hoverOn.getAttribute("data-id")
+          valueHoverOn && toggleOption(valueHoverOn)
+          console.log("tab: ", event, valueHoverOn);
+        }
+        
+      }
+    };
     return (
       <Popover
         open={isPopoverOpen}
@@ -267,6 +286,9 @@ export const MultiSelect = React.forwardRef<
         >
           <Command>
             <CommandList>
+              <CommandInput
+                placeholder="Type a command or search..."
+                onKeyDown={handleInputKeyDown} />
               <CommandEmpty>No results found.</CommandEmpty>
               <CommandGroup>
                 {options.map((option) => {
@@ -275,21 +297,9 @@ export const MultiSelect = React.forwardRef<
                     <CommandItem
                       key={option.value}
                       onSelect={() => toggleOption(option.value)}
-                      className="cursor-pointer"
+                      className={cn("cursor-pointer min-w-[350px]", isSelected && "bg-[#F4F4F4]")}
+                      data-id={option.value}
                     >
-                      <div
-                        className={cn(
-                          "mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary",
-                          isSelected
-                            ? "bg-primary text-primary-foreground"
-                            : "opacity-50 [&_svg]:invisible"
-                        )}
-                      >
-                        <CheckIcon className="h-4 w-4" />
-                      </div>
-                      {option.icon && (
-                        <option.icon className="mr-2 h-4 w-4 text-muted-foreground" />
-                      )}
                       <span>{option.label}</span>
                     </CommandItem>
                   );

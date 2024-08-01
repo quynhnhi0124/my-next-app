@@ -4,6 +4,8 @@ import { useMemo } from "react";
 import { Button } from "../button";
 import { Input } from "../input";
 import TableFaceted from "./TableFaceted";
+import { MultiSelect } from "../item/MultiSelect";
+import { dataList } from "@/data";
 
 type FilterField = {
   label: string,
@@ -27,7 +29,7 @@ export default function TableToolbar({ table, tableFilterField }: TableToolbarPr
         </h2>
         <Button>Create</Button>
       </div>
-      <div className="flex items-center space-x-4">
+      <div className="flex items-center space-x-4 pb-12">
         <Input className="w-[350px]" placeholder="Search..." />
         {filterableColumns.length > 0 && filterableColumns.map(column => (
           table.getColumn(String(column.value)) && <TableFaceted

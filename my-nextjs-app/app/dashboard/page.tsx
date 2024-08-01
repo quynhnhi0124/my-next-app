@@ -6,6 +6,8 @@ import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMe
 import { CaretSortIcon } from '@radix-ui/react-icons';
 import { useMemo, useState } from 'react';
 import { Label } from "@/components/ui/label"
+import { MultiSelect } from '@/components/ui/item/MultiSelect';
+import { dataList } from '@/data';
 
 type FilterItemDefinition = {
   value: string;
@@ -57,7 +59,7 @@ export default function DashboardPage({ value, onValueChange }: FilterProps) {
           <legend>Account</legend>
         </fieldset>
       </div> */}
-      <DropdownMenu modal={false}>
+      {/* <DropdownMenu modal={false}>
         <DropdownMenuTrigger asChild>
           <Button variant="outline" className="justify-between">
             Filter data
@@ -78,7 +80,16 @@ export default function DashboardPage({ value, onValueChange }: FilterProps) {
             );
           })}
         </DropdownMenuContent>
-      </DropdownMenu>
+      </DropdownMenu> */}
+      <MultiSelect
+        options={dataList}
+        onValueChange={() => true}
+        defaultValue={[]}
+        placeholder="Select frameworks"
+        variant="inverted"
+        animation={2}
+        maxCount={3}
+      />
     </>
   );
 }

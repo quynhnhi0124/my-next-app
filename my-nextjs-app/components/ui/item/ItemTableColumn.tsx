@@ -29,16 +29,15 @@ const TableCell = ({ getValue }: any) => {
   const initValue: LevelItem["group"] = getValue();
 
   return (
-    <p>{initValue.map((item) => item.value)}</p>
-    // <MultiSelect
-    //   options={dataList}
-    //   onValueChange={() => true}
-    //   defaultValue={initValue.map((item) => item.value)}
-    //   placeholder="Select frameworks"
-    //   variant="inverted"
-    //   animation={2}
-    //   maxCount={3}
-    // />
+    <MultiSelect
+      options={dataList}
+      onValueChange={() => true}
+      defaultValue={initValue.map((item) => item.value)}
+      placeholder="Select frameworks"
+      variant="inverted"
+      animation={2}
+      maxCount={3}
+    />
   );
 }
 
