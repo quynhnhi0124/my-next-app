@@ -12,7 +12,7 @@ import {
   Users2,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { LanguageProvider } from "@inlang/paraglide-next";
+import { useStore } from "@/store/useStore";
 
 interface Link {
   title: string;
@@ -123,29 +123,26 @@ const links: Array<Link> = [
 ];
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
-  const [isOpen, setOpen] = React.useState(true);
-  const toggleNav = () => {
-    setOpen(!isOpen);
-  };
-
+  const {openNav, setOpenNav} = useStore();
+  
   return (
     // <LanguageProvider>
       <div className="grid grid-cols-[auto_1fr] min-h-screen text-[14px]">
         {/* Sidebar/Navbar */}
-        <Navbar open={isOpen} links={links} />
+        <Navbar open={openNav} links={links} />
 
         {/* Main Content */}
         <div className="w-full" style={{ gridColumn: 2 }}>
           {/* Header */}
-          <Header openNav={isOpen} toggleNav={toggleNav} />
+          <Header openNav={openNav} toggleNav={setOpenNav} />
 
           {/* Page Content */}
           <main
             className={cn(
               "p-4 overflow-y-auto transition-height duration-300 ease-in-out",
               {
-                "ps-[250px]": isOpen,
-                "ps-[100px]": !isOpen,
+                "ps-[250px]": openNav,
+                "ps-[100px]": !openNav,
               }
             )}
           >

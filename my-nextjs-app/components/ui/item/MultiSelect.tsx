@@ -186,7 +186,6 @@ export const MultiSelect = React.forwardRef<
         if (hoverOn) {
           const valueHoverOn = hoverOn.getAttribute("data-id")
           valueHoverOn && toggleOption(valueHoverOn)
-          console.log("tab: ", event, valueHoverOn);
         }
         
       }
