@@ -38,6 +38,7 @@ type ListItemTableProps = {
 export default function ListItemTable({ dataItem, tableFilterField }: ListItemTableProps) {
   const searchParams = useSearchParams();
   const [sorting, setSorting] = useState<SortState>([]);
+  const sortParams = searchParams.get("sortBy");
   const [data, setData] = useState<LevelItem[]>([]);
   const router = useRouter();
   const path = usePathname();
@@ -45,7 +46,6 @@ export default function ListItemTable({ dataItem, tableFilterField }: ListItemTa
   // Set default sorting values
   const defaultSorting: SortState = [{ id: "level", desc: true }, { id: "group", desc: false }];
 
-  const sortParams = searchParams.get("sortBy");
 
   useEffect(() => {
     if (sortParams) {
