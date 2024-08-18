@@ -6,6 +6,7 @@ import { Input } from "../input";
 import TableFaceted from "./TableFaceted";
 import { MultiSelect } from "../item/MultiSelect";
 import { dataList } from "@/data";
+import { Link } from "@/src/i18n";
 
 type FilterField = {
   label: string,
@@ -27,7 +28,7 @@ export default function TableToolbar({ table, tableFilterField }: TableToolbarPr
         <h2 className="text-lg">
           <b>List Item</b>
         </h2>
-        <Button>Create</Button>
+        <Button><Link href="/dashboard/items/create">Create Item</Link></Button>
       </div>
       <div className="flex items-center space-x-4 pb-12">
         <Input className="w-[350px]" placeholder="Search..." />

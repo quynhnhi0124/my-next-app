@@ -4,82 +4,45 @@ import React from "react";
 import Header from "../../components/ui/layout/header";
 import Navbar from "../../components/ui/layout/navbar";
 import {
-  AlertCircle,
   Archive,
-  LucideIcon,
   MessagesSquare,
-  ShoppingCart,
   Users2,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useStore } from "@/store/useStore";
+import { MenuItem } from "@/type/menu";
 
-interface Link {
-  title: string;
-  label: string;
-  icon: LucideIcon;
-  variant: "default" | "ghost";
-  href: string;
-  subItem?: Array<Link>;
-}
-
-const links: Array<Link> = [
-  // Your link objects
+const links: MenuItem[] = [
   {
     title: "Dashboard",
     label: "972",
     icon: Users2,
-    href: '/dashboard',
+    href: '#',
     variant: "default",
     subItem: [
       {
         title: "Item1",
         label: "973",
         icon: Users2,
-        href: '#',
+        href: '/dashboard/items',
         variant: "ghost",
-      },
-      {
-        title: "Item2",
-        label: "974",
-        icon: Users2,
-        href: '#',
-        variant: "ghost",
-      },
-      {
-        title: "Item3",
-        label: "975",
-        icon: Users2,
-        href: '#',
-        variant: "ghost",
-      },
-      {
-        title: "Item4",
-        label: "976",
-        icon: Users2,
-        href: '#',
-        variant: "ghost",
+        related: [
+          '/dashboard/items/create'
+        ]
       },
     ],
   },
-  {
-    title: "List item",
-    label: "342",
-    icon: AlertCircle,
-    variant: "ghost",
-    href: '/dashboard/items',
-  },
+  // {
+  //   title: "List item",
+  //   label: "342",
+  //   icon: AlertCircle,
+  //   variant: "ghost",
+  //   href: '/dashboard/items',
+  // },
   {
     title: "Forums",
     label: "128",
     icon: MessagesSquare,
-    variant: "ghost",
-    href: '#',
-  },
-  {
-    title: "Shopping",
-    label: "8",
-    icon: ShoppingCart,
     variant: "ghost",
     href: '#',
   },
@@ -93,27 +56,6 @@ const links: Array<Link> = [
       {
         title: "Item1",
         label: "973",
-        icon: Users2,
-        href: '#',
-        variant: "ghost",
-      },
-      {
-        title: "Item2",
-        label: "974",
-        icon: Users2,
-        href: '#',
-        variant: "ghost",
-      },
-      {
-        title: "Item3",
-        label: "975",
-        icon: Users2,
-        href: '#',
-        variant: "ghost",
-      },
-      {
-        title: "Item4",
-        label: "976",
         icon: Users2,
         href: '#',
         variant: "ghost",

@@ -15,9 +15,9 @@ type SortState = {
 };
 
 type ItemSearchParams = {
-  level?: string[];
-  group?: string[];
-  sortBy?: SortState[];
+  level?: string;
+  group?: string;
+  sortBy?: string;
 }
 
 const itemList: LevelItem[] = [
@@ -71,17 +71,16 @@ type searchState = {
   filter?: { [name: string]: string }
 }
 //modify url params and call api here
-async function getData(level?: string[], group?: string[], sortBy?: SortState[]) {
+async function getData(level?: string, group?: string, sortBy?: string) {
   let sort = [];
   let searchParams: searchState = {};
   if (!searchParams.sort) {
     searchParams.sort = {};
   }
-  const parseData = JSON.parse(sortBy);
+  const parseData = sortBy ? JSON.parse(sortBy) : [];
   parseData.forEach((item: SortState) => {
     searchParams.sort![item.id] = item.desc ? "DESC" : "ASC"
   })
-  console.log(111111111, searchParams);
 
   return itemList;
 }
