@@ -1,6 +1,5 @@
 import { cn } from "@/lib/utils";
 import { HamburgerMenuIcon } from "@radix-ui/react-icons";
-import LanguageSwitcher from "../item/LanguageSwitcher";
 
 interface HeaderProps {
   openNav: boolean
@@ -18,7 +17,7 @@ export default function Header({ openNav, toggleNav }: HeaderProps) {
       <div className="relative h-full cursor-pointer hover:bg-[#E1E1E9] w-14" onClick={toggleNav}>
         <HamburgerMenuIcon className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]" />
       </div>
-      <LanguageSwitcher />
+      {/* <LanguageSwitcher /> */}
     </div>
   );
 }
