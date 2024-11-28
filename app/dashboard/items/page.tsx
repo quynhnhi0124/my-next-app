@@ -1,4 +1,4 @@
-import ListItemTable from "@/components/ui/item/ItemTable";
+import ListItemTable from "@/components/item/ItemTable";
 
 interface LevelItem {
   id: string,

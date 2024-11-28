@@ -1,11 +1,11 @@
 import {
   createColumnHelper
 } from '@tanstack/react-table'
-import { Button } from '../button';
 import { CaretDownIcon, CaretSortIcon, CaretUpIcon, Pencil2Icon } from '@radix-ui/react-icons';
 import { MultiSelect } from './MultiSelect';
 import { useState } from 'react';
 import ItemHeaderAction from './ItemHeaderAction';
+import { Button } from '@/components/ui/button';
 
 interface LevelItem {
   id: string,
