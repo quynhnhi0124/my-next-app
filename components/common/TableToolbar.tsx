@@ -1,11 +1,9 @@
 "use client"
 
 import { useMemo } from "react";
-import { Button } from "../button";
-import { Input } from "../input";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import TableFaceted from "./TableFaceted";
-import { MultiSelect } from "../item/MultiSelect";
-import { dataList } from "@/data";
 
 type FilterField = {
   label: string,

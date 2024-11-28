@@ -1,8 +1,8 @@
 import { Popover, PopoverContent, PopoverTrigger } from "@radix-ui/react-popover";
-import { Button } from "../button";
+import { Button } from "@/components/ui/button";
 import { CheckIcon, PlusCircledIcon } from "@radix-ui/react-icons";
-import { Badge } from "../badge";
-import { Command, CommandGroup, CommandItem, CommandList, CommandSeparator } from "../command";
+import { Badge } from "@/components/ui/badge";
+import { Command, CommandGroup, CommandItem, CommandList, CommandSeparator } from "@/components/ui/command";
 import { Column } from "@tanstack/react-table";
 import { cn } from "@/lib/utils";
 
@@ -20,7 +20,7 @@ type TableFacetedProps<TData, TValue> = {
 export default function TableFaceted<TData, TValue>({
   column,
   title,
-  options,
+  options = [],
 }: TableFacetedProps<TData, TValue>) {
 
   const selectedValues = new Set(column?.getFilterValue() as string[])

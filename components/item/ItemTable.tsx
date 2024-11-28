@@ -3,11 +3,11 @@
 import { ColumnDef, flexRender, getCoreRowModel, getFacetedRowModel, useReactTable } from "@tanstack/react-table";
 import { useEffect, useMemo, useState } from "react";
 import { ItemTableColumn } from "./ItemTableColumn";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../table";
 import { useSearchParams } from "next/navigation";
 import { usePathname, useRouter } from "@/src/i18n";
-import TableToolbar from "../common/TableToolbar";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
+import TableToolbar from "@/components/common/TableToolbar";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../ui/table";
 
 interface LevelItem {
   id: string,

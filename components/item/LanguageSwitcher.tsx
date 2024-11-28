@@ -1,11 +1,10 @@
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
 import { CheckIcon, LetterCaseCapitalizeIcon } from "@radix-ui/react-icons";
-import { Button } from "../button";
 import * as m from "@/paraglide/messages";
 import { languageTag } from "@/src/paraglide/runtime";
 import { AvailableLanguageTag } from "@/paraglide/runtime";
 import { usePathname, useRouter } from "@/src/i18n";
-import Cookies from 'js-cookie';
+import { Button } from "@/components/ui/button";
 
 export default function LanguageSwitcher() {
   const path = usePathname();
