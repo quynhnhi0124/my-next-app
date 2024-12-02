@@ -1,6 +1,6 @@
 import { ToDoList } from "@/components/todo/ToDoList";
 
-export default function Todo() {
+export default function TaskDetail() {
 
   const data = [
     // {
